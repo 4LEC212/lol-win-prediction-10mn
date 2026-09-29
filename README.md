@@ -3,7 +3,7 @@
 [![CI](https://github.com/4LEC212/lol-win-prediction-10mn/actions/workflows/ci.yml/badge.svg)](https://github.com/4LEC212/lol-win-prediction-10mn/actions/workflows/ci.yml)
 
 <p align="center">
-  <img src="images/feature_importance.png" alt="Feature importance" width="720">
+  <img src="images/app.png" alt="Streamlit app" width="900">
 </p>
 
 This repository contains my **first end-to-end machine learning project** on real game data.  
@@ -11,6 +11,20 @@ The goal is to predict whether the **blue side** will win a League of Legends ma
 The dataset consists of game data from high-elo players, which makes the outcomes of the games less random.
 
 The analysis is in the notebook, and the project is now also a **Streamlit app**, packaged with **Docker**, tested with **pytest** and checked by **GitHub Actions**.
+
+---
+
+## Quick start
+
+The fastest way to try the app, with only [Docker](https://www.docker.com/products/docker-desktop/) installed (nothing to clone):
+
+```bash
+docker run --rm -p 8501:8501 ghcr.io/4lec212/lol-win-prediction-10mn:latest
+```
+
+Then open http://localhost:8501 in your browser, and stop the app with `Ctrl+C` in the terminal.
+
+The image is published automatically by the CI on every change to `main`: [ghcr.io/4lec212/lol-win-prediction-10mn](https://github.com/4LEC212/lol-win-prediction-10mn/pkgs/container/lol-win-prediction-10mn).
 
 ---
 
@@ -35,6 +49,7 @@ The model is the final logistic regression of the notebook. It is retrained when
 │   └── model.py                # training, evaluation and prediction
 ├── tests/                      # pytest tests
 ├── data/high_diamond_ranked_10min.csv
+├── images/                     # app screenshot, notebook chart
 ├── LoL_win_predict.ipynb       # original analysis
 ├── requirements.txt            # app dependencies (pinned)
 ├── requirements-dev.txt        # + tests and notebook dependencies
@@ -70,20 +85,16 @@ The tests cover the data loading / cleaning / filtering functions, the model (it
 
 ## Run with Docker
 
-Build and run the image locally:
+Use the published image (see [Quick start](#quick-start)), or build it yourself from the repo:
 
 ```bash
 docker build -t lol-win-predictor .
 docker run --rm -p 8501:8501 lol-win-predictor
 ```
 
-Or use the image published by the CI:
+Then open http://localhost:8501. To run it in the background instead, use `docker run -d --name lol-app -p 8501:8501 lol-win-predictor` and stop it later with `docker rm -f lol-app`.
 
-```bash
-docker run --rm -p 8501:8501 ghcr.io/4lec212/lol-win-prediction-10mn:latest
-```
-
-Then open http://localhost:8501. The published image is built for `linux/amd64` (it also runs on Apple Silicon through Docker Desktop).
+The published image is built for `linux/amd64` (it also runs on Apple Silicon through Docker Desktop).
 
 ## CI
 
