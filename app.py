@@ -101,6 +101,7 @@ with explore_tab:
             labels={"x": "Towers destroyed by blue", "y": "Towers destroyed by red", "color": "Blue win rate"},
             title="Blue win rate by towers destroyed",
         )
+        fig.update_layout(xaxis_dtick=1, yaxis_dtick=1)  # whole numbers of towers only
         col2.plotly_chart(fig)
 
         st.dataframe(selected, hide_index=True)
